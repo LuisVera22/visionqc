@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secretos
+.env
+
+# Datos: las imágenes NO van a git (se versionan en S3).
+# Solo se conserva la estructura de carpetas.
+data/**
+!data/**/
+!data/**/.gitkeep
+
+# Resultados de entrenamiento y modelos
+runs/
+*.onnx
+*.pt
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

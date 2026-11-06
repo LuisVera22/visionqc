@@ -1,0 +1,36 @@
+# Configuración de entrenamiento de VisionQC
+labels: [ok, moho, deforme]       # el orden define el índice de cada clase en el modelo
+defect_labels: [moho, deforme]    # se usan para estratificar el split y priorizar en modo "full"
+
+data_root: data
+catalog: data/catalog.csv
+output_dir: runs
+
+# Split por panetón (solo fotos propias). Las fuentes externas van SIEMPRE a train.
+split:
+  val_frac: 0.15
+  test_frac: 0.15
+  seed: 42
+
+model:
+  arch: mobilenet_v3_large        # mobilenet_v3_small | mobilenet_v3_large | efficientnet_b0
+  pretrained: true                # pesos de ImageNet (transfer learning)
+  image_size: 224
+
+train:
+  batch_size: 32
+  num_workers: 0                  # 0 es lo más estable en Windows
+  weight_decay: 0.0001
+  monitor: macro_f1               # macro_f1 | recall:moho  (métrica para guardar el mejor modelo)
+
+# Entrenamiento en dos etapas. "sources" acepta comodines (fnmatch).
+# Si una etapa no tiene imágenes (p. ej. aún no descargaste externos), se salta.
+stages:
+  - name: externo                 # aprende la textura del moho con pan público
+    sources: ["roboflow-*"]
+    epochs: 5
+    lr: 0.001
+  - name: propio                  # se adapta a tus panetones, tu cámara y tu luz
+    sources: ["propia"]
+    epochs: 15
+    lr: 0.0003

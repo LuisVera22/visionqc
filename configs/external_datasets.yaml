@@ -1,0 +1,32 @@
+# Datasets públicos de Roboflow Universe que se usan SOLO para entrenamiento.
+# Antes de usarlos:
+#   1. Abre la URL y revisa la licencia (CC BY 4.0 exige dar crédito).
+#   2. Revisa los nombres de clase reales (están en el data.yaml descargado).
+#      Las clases que no aparezcan en class_map se ignoran y se listan como aviso.
+#
+# mode:
+#   crop -> recorta cada caja etiquetada como una imagen (recomendado para detección)
+#   full -> usa la imagen completa con la clase de mayor prioridad (defectos > ok)
+
+datasets:
+  - name: roboflow-mold_bread
+    url: https://universe.roboflow.com/dataset-makanan-protein/mold_bread
+    workspace: dataset-makanan-protein
+    project: mold_bread
+    version: 1
+    license: "VERIFICAR en la página del dataset"
+    mode: crop
+    class_map:
+      mold_bread: moho
+      bread: ok
+
+  - name: roboflow-mold-bread-b03lw
+    url: https://universe.roboflow.com/mold-bread/mold-bread-b03lw
+    workspace: mold-bread
+    project: mold-bread-b03lw
+    version: 3
+    license: "CC BY 4.0"
+    mode: crop
+    class_map:                    # VERIFICAR nombres de clase tras la primera descarga
+      mold: moho
+      bread: ok
