@@ -1,0 +1,42 @@
+name: Título del PR
+
+# Con squash merge, el título del PR se convierte en el commit de main:
+# este check exige que siga Conventional Commits (ver CONTRIBUTING.md).
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+jobs:
+  conventional-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            perf
+            refactor
+            test
+            docs
+            ci
+            build
+            chore
+          scopes: |
+            data
+            train
+            api
+            infra
+            edge
+            ci
+            deps
+          requireScope: false
+          # la descripción no debe empezar con mayúscula: "feat(api): endpoint ..." y no "feat(api): Endpoint ..."
+          subjectPattern: ^(?![A-ZÁÉÍÓÚÑ]).+$
+          subjectPatternError: |
+            La descripción "{subject}" del título "{title}" no debe empezar con mayúscula.
