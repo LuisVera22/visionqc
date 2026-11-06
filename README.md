@@ -109,12 +109,7 @@ Resultado en `runs/<fecha-hora>/`: `model.onnx`, `labels.json`, `metrics.json`.
 `train.yaml`) y compara `metrics.json → test` sobre el **mismo** test. Quédate con los externos
 solo si mejoran el **recall de moho**: dejar pasar un panetón con moho es el error caro.
 
-## Subir a GitHub
+## Cómo contribuir
 
-```powershell
-git init -b main
-git add .
-git commit -m "Estructura inicial: datos, split por panetón y entrenamiento"
-git remote add origin https://github.com/<usuario>/<repo>.git
-git push -u origin main
-```
+Trabajamos con **trunk-based development** (ramas cortas + PR + squash merge a `main`) y
+**Conventional Commits** en el título de cada PR. Detalles en [CONTRIBUTING.md](CONTRIBUTING.md).
